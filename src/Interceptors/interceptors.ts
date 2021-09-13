@@ -16,7 +16,7 @@ export const initializeAuthInterceptors = (authHttpService: AxiosInstance) => {
 			if (tokens.RefreshToken && tokens.AccessToken) {
 				const decodedAccessToken = jwtDecode<JwtPayload>(tokens.AccessToken);
 				if (decodedAccessToken.exp) {
-                    if (Date.now() >= decodedAccessToken?.exp * 1000) {
+                    if (new Date().getTime() / 1000 > decodedAccessToken?.exp) {
                         console.log("Tokens expired. renewing..");
 						try {
 							const {
