@@ -1,12 +1,15 @@
-import httpService from "Interceptors/config";
 import config from "Config/config";
+import AxiosInstances from "Interceptors/config";
 
 const refresh = async (token: string) => {
-	return await httpService.post(`${config.apiEndpoints.auth}/refresh`, { Token: token });
+	return await AxiosInstances.httpService.post(
+		`${config.apiEndpoints.auth}/refresh`,
+		{ Token: token }
+	);
 };
 
 const TokenServices = {
-	refresh
+	refresh,
 };
 
 export default TokenServices;

@@ -1,18 +1,23 @@
 import { QuestionFormType } from "Components/AppComponents/AskQuestionForm";
 import config from "Config/config";
-import { authHttpService } from "Interceptors/config";
+import AxiosInstances from "Interceptors/config";
 
 const getAllQuestions = async () => {
-	return await authHttpService.get(config.apiEndpoints.questions);
+	return await AxiosInstances.authHttpService.get(
+		config.apiEndpoints.questions
+	);
 };
 
 const postQuestion = async (formData: QuestionFormType) => {
-	return await authHttpService.post(`${config.apiEndpoints.questions}/create`, formData);
+	return await AxiosInstances.authHttpService.post(
+		`${config.apiEndpoints.questions}/create`,
+		formData
+	);
 };
 
 const QuestionServices = {
 	getAllQuestions,
-	postQuestion
+	postQuestion,
 };
 
 export default QuestionServices;
