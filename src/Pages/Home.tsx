@@ -6,6 +6,8 @@ import { withRouter } from "react-router";
 import RightSection from "Components/AppComponents/RightSection";
 import LeftSection from "Components/AppComponents/LeftSection";
 import QuestionServices from "Services/question.services";
+import "Assets/Styles/dots.css";
+import IF from "Components/GenericComponents/IF";
 const Home = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [questions, setQuestions] = useState<Question[]>([]);
@@ -14,14 +16,16 @@ const Home = () => {
 		setIsLoading(true);
 		try {
 			const {
-				data: { questions }
+				data: { questions },
 			} = await QuestionServices.getAllQuestions();
 			setQuestions(
 				questions
 					.map((question: any) => {
 						return new Question({
 							...question,
-							Answers: question.Answers.map((answer: any) => new AnswerModel(answer))
+							Answers: question.Answers.map(
+								(answer: any) => new AnswerModel(answer)
+							),
 						});
 					})
 					.sort((a: Question, b: Question) => {
@@ -42,9 +46,14 @@ const Home = () => {
 	}, []);
 
 	return (
-		<Container style={{ display: "flex", paddingTop: "2em" }}>
+		<Container className="" style={{ display: "flex", paddingTop: "2em" }}>
 			<Col style={{ flexBasis: "70%" }}>
-				<LeftSection questions={questions} />
+				<IF predicate={isLoading}>
+					<div className="dot-flashing" style={{top: '900%', left: '50%'}}></div>
+				</IF>
+				<IF predicate={!isLoading}>
+					<LeftSection questions={questions} />
+				</IF>
 				{/* <SearchBar setQuestions={setQuestions} />
 				 */}
 			</Col>

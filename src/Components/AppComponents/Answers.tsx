@@ -1,11 +1,12 @@
 import { Answer as AnswerModel } from "Models/answer.model";
 import { useState } from "react";
-import { CardText, Collapse, Input } from "reactstrap";
+import { CardText, Collapse, Input, Spinner } from "reactstrap";
 import * as BsIcons from "react-icons/bs";
 import styled from "styled-components";
 import Answer from "Components/AppComponents/Answer";
 import AnswerServices from "Services/answer.services";
 import { useUserContext } from "Store";
+import IF from "Components/GenericComponents/IF";
 
 interface IAnswers {
 	answers: AnswerModel[];
@@ -54,6 +55,7 @@ const Answers = ({ answers: answerData, questionId }: IAnswers) => {
 				}`,
 			});
 			setAnswers((prev) => [...prev, new AnswerModel(data)]);
+			setAnswerText("");
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -121,15 +123,29 @@ const Answers = ({ answers: answerData, questionId }: IAnswers) => {
 					type="textarea"
 					name="text"
 				/>
-				<i
-					onClick={() => answerText && postAnswer()}
-					style={{
-						position: "absolute",
-						top: "40%",
-						right: "2%",
-						cursor: "pointer",
-					}}
-					className="fas fa-paper-plane"></i>
+				<IF predicate={isLoading}>
+					<Spinner
+						style={{
+							position: "absolute",
+							top: "40%",
+							right: "2%",
+							cursor: "pointer",
+						}}
+						size="sm"
+						color="dark"
+					/>
+				</IF>
+				<IF predicate={!isLoading}>
+					<i
+						onClick={() => answerText && !isLoading && postAnswer()}
+						style={{
+							position: "absolute",
+							top: "40%",
+							right: "2%",
+							cursor: "pointer",
+						}}
+						className="fas fa-paper-plane"></i>
+				</IF>
 			</div>
 		</div>
 	);
