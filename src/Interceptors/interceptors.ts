@@ -22,7 +22,7 @@ export const initializeAuthInterceptors = (authHttpService: AxiosInstance) => {
 							const {
 								data: { AccessToken }
 							}: any = await TokenServices.refresh(tokens.RefreshToken);
-                            TokenAuthHelper.setToken({...tokens, AccessToken});
+                            TokenAuthHelper.setToken(new Token({RefreshToken: tokens.RefreshToken, AccessToken}));
                             tokens.AccessToken = AccessToken;
 						} catch (error: any) {
                             console.error(error);
