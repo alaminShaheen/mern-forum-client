@@ -7,9 +7,10 @@ For styling, [reactstrap](https://reactstrap.github.io/) and [styled components]
 
 This Project is a Simple ReactJS Project which uses the following features
 1. Entire project done using Typescript
-2. Unprotected and protected routing with react-router-dom and auth guards
-3. Making protected HTTP calls using axios and axios interceptors 
-4. Using Bootstrap along with React
+2. Fully responsive across all devices
+3. Unprotected and protected routing with react-router-dom and auth guards
+4. Making protected HTTP calls using axios and axios interceptors 
+5. Using Bootstrap along with React
 
 ## Live Application URL
 
