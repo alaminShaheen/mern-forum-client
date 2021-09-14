@@ -32,7 +32,7 @@ All server configs required for this app can be found [here](https://github.com/
 
 Clone the project into local
 
-Install all the npm packages. Go into the project folder and type the following command to install all npm packages
+Go into the project folder and type the following command to install necessary packages and dependencies. 
 
 ```bash
 npm install
