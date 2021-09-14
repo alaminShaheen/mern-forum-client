@@ -12,7 +12,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Container, Form, FormGroup, Label } from "reactstrap";
 import AuthServices from "Services/auth.services";
 import { useAlertContext, useTokenContext, useUserContext } from "Store";
-import { displayAlert } from "Store/Alert/alertAction";
+import { clearAlert, displayAlert } from "Store/Alert/alertAction";
 import { updateToken } from "Store/Token/tokenAction";
 import { updateUser } from "Store/User/userAction";
 import styled from "styled-components";
@@ -42,6 +42,7 @@ const Login = () => {
 
 	const handleFormSubmit: SubmitHandler<LoginFormType> = async (formData) => {
 		setLoading(true);
+		if(alertState.Message) alertDispatch(clearAlert());
 		try {
 			const {
 				data: { AccessToken, RefreshToken, User: user }
