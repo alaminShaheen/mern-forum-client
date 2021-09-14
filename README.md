@@ -1,15 +1,30 @@
-# Getting Started with Create React App
+# MERN forum client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MERN forum client is the cleint side application of the MERN forum website. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+For styling, [reactstrap](https://reactstrap.github.io/) and [styled components](https://styled-components.com/) was used. JWT token authentication and refresh was implemented using [Axios](https://github.com/axios/axios) interceptors.
 
-## Available Scripts
+# Deployment
+App is currently deployed using Netlify at (https://6140306ffb01644416880cb7--mern-forum-askme.netlify.app/)
 
-In the project directory, you can run:
+## Available Features
 
-### `yarn start`
+In this project following are the features:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Sign Up
+
+Users can sign up for an account
+
+### Sign In
+
+Users can login with the created account
+
+### Ask Question
+
+Users can ask a question after loggin in
+
+### Reply to a Question
+
+Users can reply to their own or somebody else's question when they are logged in
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
