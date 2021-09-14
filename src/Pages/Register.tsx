@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Container, Form, FormGroup, Label } from 'reactstrap';
 import styled from 'styled-components';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
@@ -119,4 +119,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default withRouter(Register);

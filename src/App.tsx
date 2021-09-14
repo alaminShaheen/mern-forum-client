@@ -13,7 +13,8 @@ const App = () => {
     const { userState } = useUserContext();
     const { tokenState } = useTokenContext();
     const isAuthenticated = () => {
-        if (tokenState.AccessToken && tokenState.RefreshToken && userState.Email) {
+        console.log('present');
+        if (tokenState?.AccessToken && tokenState?.RefreshToken && userState?.Email) {
             console.log(jwtDecode<User>(tokenState.AccessToken));
             if (jwtDecode<User>(tokenState.AccessToken)) {
                 return true;
@@ -37,8 +38,10 @@ const App = () => {
         <>
             <BrowserRouter>
                 <Switch>
-                    <Route path="/login">{isAuthenticated() ? <Redirect to={{ pathname: '/' }} /> : <Login />}</Route>
-                    <Route path="/register">{isAuthenticated() ? <Redirect to={{ pathname: '/' }} /> : <Register />}</Route>
+                    <Route exact path="/login">
+                        {isAuthenticated() ? <Redirect to="/" /> : <Login />}
+                    </Route>
+                    <Route path="/register">{isAuthenticated() ? <Redirect to="/" /> : <Register />}</Route>
                     <Route component={DefaultRoutes} />
                 </Switch>
             </BrowserRouter>

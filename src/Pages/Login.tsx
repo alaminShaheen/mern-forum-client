@@ -8,7 +8,7 @@ import { Token } from "Models/token.model";
 import { User } from "Models/user.model";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
 import { Container, Form, FormGroup, Label } from "reactstrap";
 import AuthServices from "Services/auth.services";
 import { useAlertContext, useTokenContext, useUserContext } from "Store";
@@ -110,4 +110,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default withRouter(Login);
