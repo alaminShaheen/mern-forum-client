@@ -7,7 +7,6 @@ initializeGeneralInterceptor(httpService);
 const authHttpService = axios.create();
 initializeAuthInterceptors(authHttpService);
 
-// initializeAuthInterceptors(authHttpService);
 const AxiosInstances = { authHttpService, httpService };
 
 export default AxiosInstances;
