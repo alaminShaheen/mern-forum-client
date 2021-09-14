@@ -1,73 +1,75 @@
-import { AxiosInstance } from "axios";
-import { TokenAuthHelper } from "Helpers/token.authHelper";
-import { UserAuthHelper } from "Helpers/user.authHelper";
-import jwtDecode, { JwtPayload } from "jwt-decode";
-import { Token } from "Models/token.model";
-import TokenServices from "Services/token.services";
-
-/**
- * EXAMPLE: https://codepen.io/shihab-live/pen/PozaObO
- */
+import { AxiosError, AxiosInstance } from 'axios';
+import { TokenAuthHelper } from 'Helpers/token.authHelper';
+import { Token } from 'Models/token.model';
+import TokenServices from 'Services/token.services';
 
 export const initializeAuthInterceptors = (authHttpService: AxiosInstance) => {
-	authHttpService.interceptors.request.use(
-		async (request) => {
+    authHttpService.interceptors.request.use(
+        (request) => {
             const tokens: Token = TokenAuthHelper.getToken();
-			if (tokens.RefreshToken && tokens.AccessToken) {
-				const decodedAccessToken = jwtDecode<JwtPayload>(tokens.AccessToken);
-				if (decodedAccessToken.exp) {
-                    if (new Date().getTime() / 1000 > decodedAccessToken?.exp) {
-                        console.log("Tokens expired. renewing..");
-						try {
-							const {
-								data: { AccessToken }
-							}: any = await TokenServices.refresh(tokens.RefreshToken);
-                            TokenAuthHelper.setToken(new Token({RefreshToken: tokens.RefreshToken, AccessToken}));
-                            tokens.AccessToken = AccessToken;
-						} catch (error: any) {
-                            console.error(error);
-						}
-					}
-				}
-				if (typeof window !== "undefined" && UserAuthHelper.getUser()?.Email && tokens.AccessToken && tokens.RefreshToken) {
-					console.log("setting bearer");
-					request.headers.Authorization = `Bearer ${tokens.AccessToken}`;
-				}
-			}
-			return request;
-		},
-		(error) => {
-			if (error.response) {
-				return Promise.reject(error.response);
-			} else {
-				return Promise.reject(error);
-			}
-		}
-	);
+            if (tokens.AccessToken) {
+                request.headers.Authorization = `Bearer ${tokens.AccessToken}`;
+            }
+            return request;
+        },
+        (error) => Promise.reject(error)
+    );
 
-	authHttpService.interceptors.response.use(
-		(res) => {
-			return res;
-		},
-		(error) => {
-			if (error.response) {
-				return Promise.reject(error.response);
-			} else {
-				return Promise.reject(error);
-			}
-		}
-	);
+    authHttpService.interceptors.response.use(
+        (response) => response,
+        async (error: AxiosError) => {
+            const originalConfig = error.config;
+            if (error.response) {
+                if (error.response.status === 403) {
+                    const tokens: Token = TokenAuthHelper.getToken();
+                    console.log('Tokens expired. renewing..');
+                    try {
+                        const {
+                            data: { AccessToken },
+                        }: any = await TokenServices.refresh(tokens.RefreshToken);
+                        TokenAuthHelper.setToken(
+                            new Token({
+                                RefreshToken: tokens.RefreshToken,
+                                AccessToken,
+                            })
+                        );
+                        tokens.AccessToken = AccessToken;
+                        return authHttpService(originalConfig);
+                    } catch (error: any) {
+                        return Promise.reject(error);
+                    }
+                }
+            }
+        }
+    );
 };
 
 export function initializeGeneralInterceptor(httpService: AxiosInstance) {
-	httpService.interceptors.response.use(
-		(res) => res,
-		(error) => {
-			if (error.response) {
-				return Promise.reject(error.response);
-			} else {
-				return Promise.reject(error);
-			}
-		}
-	);
+    httpService.interceptors.request.use(
+        (config) => config,
+        (error: AxiosError) => {
+            if (error.response) {
+                console.log(error);
+
+                return Promise.reject(error.response);
+            } else {
+                console.log(error);
+                return Promise.reject(error);
+            }
+        }
+    );
+
+    httpService.interceptors.response.use(
+        (config) => config,
+        (error: AxiosError) => {
+            if (error.response) {
+                console.log(error);
+
+                return Promise.reject(error.response);
+            } else {
+                console.log(error);
+                return Promise.reject(error);
+            }
+        }
+    );
 }
