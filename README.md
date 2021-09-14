@@ -1,6 +1,6 @@
 # MERN forum client
 
-MERN forum client is the cleint side application of the MERN forum website. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MERN forum client is the client side application of the MERN forum website. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 For styling, [reactstrap](https://reactstrap.github.io/) and [styled components](https://styled-components.com/) was used. JWT token authentication and refresh was implemented using [Axios](https://github.com/axios/axios) interceptors.
 
 ## Features used in this Repo
