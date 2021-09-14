@@ -1,7 +1,7 @@
 # MERN forum client
 
 MERN forum client is the cleint side application of the MERN forum website. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-For styling [reactstrap](https://reactstrap.github.io/) and [styled components](https://styled-components.com/) was used. JWT token authentication and refresh was implemented using [Axios](https://github.com/axios/axios) interceptors.
+For styling, [reactstrap](https://reactstrap.github.io/) and [styled components](https://styled-components.com/) was used. JWT token authentication and refresh was implemented using [Axios](https://github.com/axios/axios) interceptors.
 
 # Deployment
 App is currently deployed using Netlify at (https://6140306ffb01644416880cb7--mern-forum-askme.netlify.app/)
