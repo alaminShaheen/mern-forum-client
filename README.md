@@ -13,8 +13,7 @@ This Project is a Simple ReactJS Project which uses the following features
 
 ## Live Application URL
 
-### https://6140306ffb01644416880cb7--mern-forum-askme.netlify.app/
-
+The Application is deployed in https://6140306ffb01644416880cb7--mern-forum-askme.netlify.app/
 
 ## Available User Interactions
 
