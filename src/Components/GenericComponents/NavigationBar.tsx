@@ -33,7 +33,7 @@ const NavigationBar = () => {
 
     const toggle = () => setIsOpen(!isOpen);
     return (
-        <Navbar style={{ padding: '1% 5%' }} sticky="top" color="light" light expand="md">
+        <Navbar style={{ padding: '1% 5%' }} sticky="top" color="light" light expand>
             <Link to="/" className="mr-auto">
                 <NavbarBrand>📝 AskMe!</NavbarBrand>
             </Link>
