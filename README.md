@@ -28,7 +28,7 @@ The following user interactions are available in the app:
 ## Cloning and Running the Application in local
 
 **IMPORTANT NOTE - Please run the [MERN forum server](https://github.com/BlueGhost12/mern-forum-server) locally first before running this application locally.**
-All server configs required for this app can be found in this project under [this](https://github.com/BlueGhost12/mern-forum-client/blob/main/src/Config/config.ts) directory.
+All server configs required for this app are preconfigured can be found in this project under [this](https://github.com/BlueGhost12/mern-forum-client/blob/main/src/Config/config.ts) directory.
 
 Clone the project into local
 
