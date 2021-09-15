@@ -27,10 +27,6 @@ const NavigationBar = () => {
         }
     };
 
-    // useEffect(() => {
-    //     if (!tokenState?.AccessToken && !tokenState.RefreshToken && !userState.Email) history.push('/login');
-    // }, [tokenState, userState]);
-
     const toggle = () => setIsOpen(!isOpen);
     return (
         <Navbar style={{ padding: '1% 5%' }} sticky="top" color="light" light expand>

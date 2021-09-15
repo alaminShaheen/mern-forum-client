@@ -56,8 +56,8 @@ const AskQuestionForm = ({ handleClose, setQuestions }: IAskQuestionForm) => {
 							rules={{
 								required: "Title is required",
 								maxLength: {
-									value: 40,
-									message: "Question title cannot be greater than 40 characters"
+									value: 100,
+									message: "Question title cannot be greater than 100 characters"
 								}
 							}}
 							render={({ field }) => <InputField hasError={!!errors.Title} errorText={errors.Title?.message} type="text" placeholder="Enter your question" {...field} />}
