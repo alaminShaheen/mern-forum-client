@@ -17,7 +17,7 @@ interface IInput extends InputHTMLAttributes<HTMLInputElement> {
 	hasError?: boolean;
 }
 
-const InputField = ({ className, errorText, hasError, ...rest }: IInput) => {
+const InputField = ({ errorText, hasError, ...rest }: IInput) => {
 	const [showPassword, setShowPassword] = useState(false);
 	return (
 		<>
