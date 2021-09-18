@@ -36,9 +36,9 @@ export const initializeAuthInterceptors = (authHttpService: AxiosInstance) => {
                         tokens.AccessToken = AccessToken;
                         return authHttpService(originalConfig);
                     } catch (error: any) {
-                        return Promise.reject(error);
+                        return Promise.reject(error.response)
                     }
-                }
+                } else return Promise.reject(error.response);
             }
         }
     );

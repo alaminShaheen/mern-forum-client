@@ -1,7 +1,6 @@
 import IF from 'Components/GenericComponents/IF';
 import jwtDecode from 'jwt-decode';
 import { User } from 'Models/user.model';
-import { useEffect, useState } from 'react';
 import { Redirect, Route, RouteComponentProps, RouteProps, StaticContext } from 'react-router';
 import { useTokenContext, useUserContext } from 'Store';
 
@@ -26,6 +25,7 @@ const ProtectedRoute = ({ component: Component, ...rest }: IProtectedRoute) => {
             {...rest}
             render={(props) => {
                 return isAuthenticated() ? <Component {...props} /> : <Redirect to="/login" />;
+                // return <Component {...props} />;
             }}
         />
     );

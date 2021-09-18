@@ -2,7 +2,6 @@ import ButtonComponent from "Components/GenericComponents/ButtonComponent";
 import IF from "Components/GenericComponents/IF";
 import InputField from "Components/GenericComponents/InputField";
 import { Question } from "Models/question.models";
-import { RegisterFormType } from "Pages/Register";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ModalBody, ModalFooter, Form, FormGroup, Label, Button } from "reactstrap";

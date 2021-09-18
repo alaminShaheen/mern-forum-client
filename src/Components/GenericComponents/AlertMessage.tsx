@@ -1,15 +1,15 @@
-import IF from 'Components/GenericComponents/IF';
-import { Alert as AlertModel, AlertType } from 'Models/alert.model';
-import { useEffect, useState } from 'react';
-import { Alert } from 'reactstrap';
-import { useAlertContext } from 'Store';
-import { clearAlert } from 'Store/Alert/alertAction';
+import IF from "Components/GenericComponents/IF";
+import { Alert as AlertModel, AlertType } from "Models/alert.model";
+import { useEffect, useState } from "react";
+import { Alert } from "reactstrap";
+import { useAlertContext } from "Store";
+import { clearAlert } from "Store/Alert/alertAction";
 
 interface IAlertMessage {
-    alert: AlertModel;
+    className?: string;
 }
 
-const AlertMessage = ({ alert }: IAlertMessage) => {
+const AlertMessage = ({className = "my-3"}: IAlertMessage) => {
     const { alertState, alertDispatch } = useAlertContext();
     const [visible, setVisible] = useState(false);
     const onDismiss = () => setVisible(false);
@@ -19,7 +19,7 @@ const AlertMessage = ({ alert }: IAlertMessage) => {
         let id: NodeJS.Timeout;
         if (alertState.Timeout) {
             id = setTimeout(() => {
-                alertDispatch(clearAlert());
+                alertState.Message = "";
                 onDismiss();
             }, alertState.Timeout);
         }
@@ -30,11 +30,11 @@ const AlertMessage = ({ alert }: IAlertMessage) => {
 
     return (
         <IF predicate={!!alertState.Message}>
-            <Alert className="mt-3 mb-3" isOpen={visible} color={alertState.Type} toggle={onDismiss}>
+            <Alert className={`${className}`} isOpen={visible} color={alertState.Type} toggle={onDismiss}>
                 {alertState.Message}
             </Alert>
         </IF>
-    )
+    );
 };
 
 export default AlertMessage;
