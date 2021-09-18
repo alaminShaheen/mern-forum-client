@@ -3,7 +3,7 @@ import IF from "Components/GenericComponents/IF";
 import { ReactNode } from "react";
 import { Modal as ModalComp, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap"
 
-interface IModal {
+export interface IModal {
     isModalOpen: boolean;
     setIsModalOpen: Function;
     title: string;
