@@ -2,6 +2,11 @@ import { AxiosError, AxiosInstance } from 'axios';
 import { TokenAuthHelper } from 'Helpers/token.authHelper';
 import { Token } from 'Models/token.model';
 import TokenServices from 'Services/token.services';
+declare module 'axios' {
+    export interface AxiosRequestConfig {
+      _retry?: boolean;
+    }
+  }
 
 export const initializeAuthInterceptors = (authHttpService: AxiosInstance) => {
     authHttpService.interceptors.request.use(
@@ -20,7 +25,8 @@ export const initializeAuthInterceptors = (authHttpService: AxiosInstance) => {
         async (error: AxiosError) => {
             const originalConfig = error.config;
             if (error.response) {
-                if (error.response.status === 403) {
+                if (error.response.status === 403 && !originalConfig._retry) {
+                    originalConfig._retry = true;
                     const tokens: Token = TokenAuthHelper.getToken();
                     console.log('Tokens expired. renewing..');
                     try {
