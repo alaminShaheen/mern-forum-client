@@ -8,7 +8,7 @@ import { Token } from "Models/token.model";
 import { User } from "Models/user.model";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Link, useHistory, withRouter } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import { Container, Form, FormGroup, Label } from "reactstrap";
 import AuthServices from "Services/auth.services";
 import { useAlertContext, useTokenContext, useUserContext } from "Store";
@@ -70,7 +70,7 @@ const Login = () => {
     const handleRegisterClick = () => {
         alertState.Message = "";
         history.push("/register");
-    }
+    };
 
     return (
         <Container className="d-flex flex-column justify-content-center w-25" fluid="sm" style={{ width: "20%", minWidth: "25rem", height: "calc(100vh - 23px)" }}>

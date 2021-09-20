@@ -1,11 +1,8 @@
 import { Question } from "Models/question.models";
-import { useState } from "react";
-import { Card, CardBody, CardTitle, CardText, Collapse } from "reactstrap";
+import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 import styled from "styled-components";
 import { relativeTimeFromDates } from "Helpers/time.helper";
-import Answers from "Components/AppComponents/Answers";
-import { Link } from "react-router-dom";
-import { Answer } from "Models/answer.model";
+import { Link, useHistory } from "react-router-dom";
 
 interface ISingleQuestion {
 	question: Question;
@@ -25,12 +22,10 @@ const StyledCard = styled(Card)`
 `;
 
 const SingleQuestion = ({ question }: ISingleQuestion) => {
-	const [isOpen, setIsOpen] = useState(false);
-
-	console.log(question);
+	const history = useHistory()
 
 	return (
-		<Link to={{ pathname: `/${question.Id}`, state: { question } }} style={{ color: "black", textDecoration: "none" }}>
+		<Link to={{ pathname: `/${question.Id}`, state: { from: history.location.pathname } }} style={{ color: "black", textDecoration: "none" }}>
 			<StyledCard className="mb-4">
 				<CardBody>
 					<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

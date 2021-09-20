@@ -11,10 +11,11 @@ import IF from "Components/GenericComponents/IF";
 import AlertMessage from "Components/GenericComponents/AlertMessage";
 import { useAlertContext } from "Store";
 import { AlertType } from "Models/alert.model";
+import { clearAlert } from "Store/Alert/alertAction";
 const Home = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [questions, setQuestions] = useState<Question[]>([]);
-    const { alertState } = useAlertContext();
+    const { alertState, alertDispatch } = useAlertContext();
 
     const fetchAllQuestions = async () => {
         console.log("calling");
@@ -45,8 +46,10 @@ const Home = () => {
     };
 
     useEffect(() => {
-        if (alertState.Type === AlertType.Error) alertState.Message = "";
         fetchAllQuestions();
+        return () => {
+            alertState.Message = "";
+        };
     }, []);
 
     return (

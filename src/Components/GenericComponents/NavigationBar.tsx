@@ -22,8 +22,8 @@ const NavigationBar = () => {
             tokenDispatch(clearToken());
             userDispatch(clearUser());
             alertDispatch(clearAlert());
-            history.replace("/login");
             setIsLoading(false);
+            history.replace("/login");
         } catch (error) {
             console.error(error);
             setIsLoading(false);

@@ -1,6 +1,6 @@
 import { relativeTimeFromDates } from "Helpers/time.helper";
 import { Question } from "Models/question.models";
-import { useHistory, useParams, withRouter } from "react-router";
+import { useHistory, useLocation, useParams, withRouter } from "react-router";
 import { Alert, CardText, Container, DropdownItem, DropdownMenu, DropdownToggle, Form, UncontrolledDropdown } from "reactstrap";
 import styled from "styled-components";
 import Answers from "Components/AppComponents/Answers";
@@ -25,7 +25,7 @@ interface ParamTypes {
 }
 
 interface IPost {
-    question: Question;
+    prev: string;
 }
 
 const StyledParagraph = styled.p`
@@ -44,7 +44,14 @@ export type UpdateQuestionType = {
     Description: string;
 };
 
+interface LocationState {
+    from: string;
+}
+
 const Post = () => {
+    const {
+        state: { from },
+    } = useLocation<LocationState>();
     const { postId: questionId } = useParams<ParamTypes>();
     const [question, setQuestion] = useState<Question>();
     const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +60,6 @@ const Post = () => {
     const [bufferTitle, setBufferTitle] = useState("");
     const [bufferDescription, setBufferDescription] = useState("");
     const [showWarningModal, setShowWarningModal] = useState(false);
-
     const {
         register,
         handleSubmit,
@@ -150,6 +156,9 @@ const Post = () => {
 
     useEffect(() => {
         fetchQuestion();
+        return () => {
+            if (alertState.Message.includes("updated") || alertState.Type === AlertType.Error) alertState.Message = "";
+        };
     }, []);
 
     return (
