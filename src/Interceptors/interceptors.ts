@@ -1,12 +1,13 @@
-import { AxiosError, AxiosInstance } from 'axios';
-import { TokenAuthHelper } from 'Helpers/token.authHelper';
-import { Token } from 'Models/token.model';
-import TokenServices from 'Services/token.services';
-declare module 'axios' {
+import { AxiosError, AxiosInstance } from "axios";
+import { TokenAuthHelper } from "Helpers/token.authHelper";
+import { UserAuthHelper } from "Helpers/user.authHelper";
+import { Token } from "Models/token.model";
+import TokenServices from "Services/token.services";
+declare module "axios" {
     export interface AxiosRequestConfig {
-      _retry?: boolean;
+        _retry?: boolean;
     }
-  }
+}
 
 export const initializeAuthInterceptors = (authHttpService: AxiosInstance) => {
     authHttpService.interceptors.request.use(
@@ -28,7 +29,7 @@ export const initializeAuthInterceptors = (authHttpService: AxiosInstance) => {
                 if (error.response.status === 403 && !originalConfig._retry) {
                     originalConfig._retry = true;
                     const tokens: Token = TokenAuthHelper.getToken();
-                    console.log('Tokens expired. renewing..');
+                    console.log("Tokens expired. renewing..");
                     try {
                         const {
                             data: { AccessToken },
@@ -41,10 +42,21 @@ export const initializeAuthInterceptors = (authHttpService: AxiosInstance) => {
                         );
                         tokens.AccessToken = AccessToken;
                         return authHttpService(originalConfig);
-                    } catch (error: any) {
-                        return Promise.reject(error.response)
+                    } catch (e: any) {
+                        console.log(e);
+                        if (error.response.status === 403) {
+                            TokenAuthHelper.clearToken();
+                            UserAuthHelper.clearUser();
+                            window.location.href = "/login";
+                        }
+                        return Promise.reject(error.response);
                     }
-                } else return Promise.reject(error.response);
+                } else if (error.response.status === 403) {
+                    TokenAuthHelper.clearToken();
+                    UserAuthHelper.clearUser();
+                    window.location.href = "/login";
+                }
+                return Promise.reject(error.response);
             }
         }
     );
